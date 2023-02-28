@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_28_135933) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_141323) do
+  create_table "sleep_records", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "clock_in_at"
+    t.datetime "clock_out_at"
+    t.integer "sleep_duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "clock_in_at"], name: "index_sleep_records_on_user_id_and_clock_in_at"
+    t.index ["user_id"], name: "index_sleep_records_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -18,4 +29,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_135933) do
     t.index ["id"], name: "index_users_on_id"
   end
 
+  add_foreign_key "sleep_records", "users"
 end
