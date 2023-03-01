@@ -13,4 +13,11 @@ class User < ApplicationRecord
   def clock_out!
     SleepRecord.clock_out!(self)
   end
+
+  def followees_sleep_records
+    # get followees ids
+    followees_ids = followees(User).pluck(:id)
+
+    SleepRecord.past_week(followees_ids)
+  end
 end

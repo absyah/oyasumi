@@ -7,6 +7,9 @@ class SleepRecord < ApplicationRecord
   # completed sleep records mean the sleep records that have completed the lifecycle
   scope :completed, -> { where.not(clock_in_at: nil).where.not(clock_out_at: nil).order(:created_at) }
 
+  # sleep record from past week, sorted by sleep duration asc
+  scope :past_week, ->(user_ids) { completed.reorder(nil).where(user_id: user_ids, clock_in_at: 1.week.ago.beginning_of_day..).order(:sleep_duration) }
+
   # calculates sleep duration before updating the sleep record
   before_update :calculate_sleep_duration
 

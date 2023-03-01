@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'SleepRecords', type: :request do
+RSpec.describe 'Follows', type: :request do
   let(:current_user) { FactoryBot.create(:user) }
   let(:friend1) { FactoryBot.create(:user) }
   let(:friend2) { FactoryBot.create(:user) }

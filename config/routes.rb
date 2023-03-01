@@ -10,8 +10,9 @@ Rails.application.routes.draw do
       post 'clock_out', action: :clock_out, controller: 'sleep_records'
 
       namespace :users do
-        match ':id/follow' => "follows#follow", as: :follow, via: [:post]
-        match ':id/unfollow' => "follows#unfollow", as: :unfollow, via: [:post]
+        match ':id/follow' => 'follows#follow', as: :follow, via: [:post]
+        match ':id/unfollow' => 'follows#unfollow', as: :unfollow, via: [:post]
+        match 'sleep_records' => 'sleep_records#index', as: :sleep_records, via: [:get]
       end
     end
   end
