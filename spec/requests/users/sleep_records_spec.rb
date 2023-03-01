@@ -5,6 +5,10 @@ RSpec.describe 'SleepRecords', type: :request do
   let(:friend1) { FactoryBot.create(:user) }
   let(:friend2) { FactoryBot.create(:user) }
 
+  before(:each) do
+    http_login(current_user)
+  end
+
   describe 'GET /api/v1/users/sleep_records' do
     before do
       current_user.follow!(friend1)
@@ -24,7 +28,7 @@ RSpec.describe 'SleepRecords', type: :request do
     end
 
     it 'returns followees\' past week sleep records' do
-      get "/api/v1/users/sleep_records"
+      get "/api/v1/users/sleep_records", headers: @env
 
       expect(response).to have_http_status(:success)
       expect(json['data'].length).to eq(5)

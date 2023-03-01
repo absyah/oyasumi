@@ -64,5 +64,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include ApiHelpers
+  config.include ApiHelper
+  config.include AuthHelper
 end
