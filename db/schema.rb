@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_28_141323) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_01_105842) do
+  create_table "follows", force: :cascade do |t|
+    t.string "follower_type"
+    t.integer "follower_id"
+    t.string "followable_type"
+    t.integer "followable_id"
+    t.datetime "created_at"
+    t.index ["followable_id", "followable_type"], name: "fk_followables"
+    t.index ["follower_id", "follower_type"], name: "fk_follows"
+  end
+
   create_table "sleep_records", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "clock_in_at"

@@ -12,7 +12,7 @@ module Api
         render json: SleepRecordSerializer.new(current_user.clock_in!)
       end
 
-      # curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/clock_in
+      # curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/clock_out
       def clock_out
         # returns clocked-out sleep record
         render json: SleepRecordSerializer.new(current_user.clock_out!)

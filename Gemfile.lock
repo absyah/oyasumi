@@ -195,6 +195,8 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
     ruby-progressbar (1.11.0)
+    socialization (2.0.1)
+      activerecord
     sqlite3 (1.6.1-x86_64-darwin)
     thor (1.2.1)
     timecop (0.9.6)
@@ -220,6 +222,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.2)
   rspec-rails
   rubocop-rails
+  socialization
   sqlite3 (~> 1.4)
   timecop
   tzinfo-data

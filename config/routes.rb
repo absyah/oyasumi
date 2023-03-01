@@ -8,6 +8,11 @@ Rails.application.routes.draw do
       get 'sleep_records', action: :index, controller: 'sleep_records'
       post 'clock_in', action: :clock_in, controller: 'sleep_records'
       post 'clock_out', action: :clock_out, controller: 'sleep_records'
+
+      namespace :users do
+        match ':id/follow' => "follows#follow", as: :follow, via: [:post]
+        match ':id/unfollow' => "follows#unfollow", as: :unfollow, via: [:post]
+      end
     end
   end
 end
