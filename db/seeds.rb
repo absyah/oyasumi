@@ -11,13 +11,15 @@ User.destroy_all
 10.times do
   u = User.create(name: Faker::Name.name)
 
-  freezed_clock_in = DateTime.current - rand(1..7).days
-  Timecop.freeze(freezed_clock_in) do
-    u.clock_in!
-  end
+  10.times do
+    freezed_clock_in = DateTime.current - rand(1..7).days
+    Timecop.freeze(freezed_clock_in) do
+      u.clock_in!
+    end
 
-  Timecop.freeze(freezed_clock_in + rand(1..8).hours) do
-    u.clock_out!
+    Timecop.freeze(freezed_clock_in + rand(1..8).hours) do
+      u.clock_out!
+    end
   end
 
   puts "Basic auth: '#{u.id}:#{u.name}'"
