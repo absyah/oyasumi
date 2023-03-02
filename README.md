@@ -78,6 +78,7 @@ Create sleep record (clock-in).
 | `clock_in_at`  | timestamp  | Clock-in timestamp |
 | `clock_out_at`  | timestamp  | Clock-out timestamp |
 | `sleep_duration`  | numeric  | Sleep duration between clock-in and clock-out in second |
+| `user`  | User Object  | User that associated with the sleep record |
 
 #### Sample request
 
@@ -91,14 +92,28 @@ curl -X POST http://localhost:3000/api/v1/clock_in -u '1:Shondra Ortiz'
 ```
 {
   "data": {
-    "id": "101",
+    "id": "103",
     "type": "sleep_record",
     "attributes": {
-      "id": 101,
+      "id": 103,
       "user_id": 1,
-      "clock_in_at": "2023-03-02T07:42:02.902Z",
+      "clock_in_at": "2023-03-02T10:24:50.740Z",
       "clock_out_at": null,
-      "sleep_duration": null
+      "sleep_duration": null,
+      "user": {
+        "id": 1,
+        "name": "Shondra Ortiz",
+        "created_at": "2023-03-02T07:40:06.143Z",
+        "updated_at": "2023-03-02T07:40:06.143Z"
+      }
+    },
+    "relationships": {
+      "user": {
+        "data": {
+          "id": "1",
+          "type": "user"
+        }
+      }
     }
   }
 }
@@ -119,6 +134,7 @@ Stop sleep record (clock-out). This endpoint calculates `sleep_duration` based o
 | `clock_in_at`  | timestamp  | Clock-in timestamp |
 | `clock_out_at`  | timestamp  | Clock-out timestamp |
 | `sleep_duration`  | numeric  | Sleep duration between clock-in and clock-out in second |
+| `user`  | User Object  | User that associated with the sleep record |
 
 
 #### Sample request
@@ -132,14 +148,28 @@ curl -X POST http://localhost:3000/api/v1/clock_out -u '1:Shondra Ortiz'
 ```
 {
   "data": {
-    "id": "101",
+    "id": "103",
     "type": "sleep_record",
     "attributes": {
-      "id": 101,
+      "id": 103,
       "user_id": 1,
-      "clock_in_at": "2023-03-02T07:42:02.902Z",
-      "clock_out_at": "2023-03-02T07:44:42.420Z",
-      "sleep_duration": 160
+      "clock_in_at": "2023-03-02T10:24:50.740Z",
+      "clock_out_at": "2023-03-02T10:25:48.046Z",
+      "sleep_duration": 3600,
+      "user": {
+        "id": 1,
+        "name": "Shondra Ortiz",
+        "created_at": "2023-03-02T07:40:06.143Z",
+        "updated_at": "2023-03-02T07:40:06.143Z"
+      }
+    },
+    "relationships": {
+      "user": {
+        "data": {
+          "id": "1",
+          "type": "user"
+        }
+      }
     }
   }
 }
@@ -170,7 +200,21 @@ curl http://localhost:3000/api/v1/sleep_records -u '1:Shondra Ortiz'
         "user_id": 1,
         "clock_in_at": "2023-02-24T07:40:06.146Z",
         "clock_out_at": "2023-02-24T10:40:06.146Z",
-        "sleep_duration": 10800
+        "sleep_duration": 10800,
+        "user": {
+          "id": 1,
+          "name": "Shondra Ortiz",
+          "created_at": "2023-03-02T07:40:06.143Z",
+          "updated_at": "2023-03-02T07:40:06.143Z"
+        }
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "1",
+            "type": "user"
+          }
+        }
       }
     },
     {
@@ -181,7 +225,21 @@ curl http://localhost:3000/api/v1/sleep_records -u '1:Shondra Ortiz'
         "user_id": 1,
         "clock_in_at": "2023-02-24T07:40:06.184Z",
         "clock_out_at": "2023-02-24T08:40:06.184Z",
-        "sleep_duration": 3600
+        "sleep_duration": 3600,
+        "user": {
+          "id": 1,
+          "name": "Shondra Ortiz",
+          "created_at": "2023-03-02T07:40:06.143Z",
+          "updated_at": "2023-03-02T07:40:06.143Z"
+        }
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "1",
+            "type": "user"
+          }
+        }
       }
     },
     ...
@@ -193,7 +251,21 @@ curl http://localhost:3000/api/v1/sleep_records -u '1:Shondra Ortiz'
         "user_id": 1,
         "clock_in_at": "2023-03-02T07:42:02.902Z",
         "clock_out_at": "2023-03-02T07:44:42.420Z",
-        "sleep_duration": 160
+        "sleep_duration": 160,
+        "user": {
+          "id": 1,
+          "name": "Shondra Ortiz",
+          "created_at": "2023-03-02T07:40:06.143Z",
+          "updated_at": "2023-03-02T07:40:06.143Z"
+        }
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "1",
+            "type": "user"
+          }
+        }
       }
     }
   ]
@@ -283,6 +355,19 @@ Returns past weeks of sleep records from the followees, ordered by `sleep_durati
 curl http://localhost:3000/api/v1/users/sleep_records -u '1:Shondra Ortiz'
 ```
 
+#### Response Payload Data Attributes
+
+The payload data is the array of sleep record objects.
+
+| Attributes  | Data Type | Note
+| ------------- | ------------- | ------------- |
+| `id`  | numeric  |               |
+| `user_id`  | numeric  | Foreign key of user |
+| `clock_in_at`  | timestamp  | Clock-in timestamp |
+| `clock_out_at`  | timestamp  | Clock-out timestamp |
+| `sleep_duration`  | numeric  | Sleep duration between clock-in and clock-out in second |
+| `user`  | User Object  | User that associated with the sleep record |
+
 #### Sample response
 
 ```
@@ -296,18 +381,46 @@ curl http://localhost:3000/api/v1/users/sleep_records -u '1:Shondra Ortiz'
         "user_id": 2,
         "clock_in_at": "2023-02-24T07:40:06.309Z",
         "clock_out_at": "2023-02-24T09:40:06.309Z",
-        "sleep_duration": 7200
+        "sleep_duration": 7200,
+        "user": {
+          "id": 2,
+          "name": "Ivory Greenfelder PhD",
+          "created_at": "2023-03-02T07:40:06.260Z",
+          "updated_at": "2023-03-02T07:40:06.260Z"
+        }
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "2",
+            "type": "user"
+          }
+        }
       }
     },
     {
-      "id": "12",
+      "id": "17",
       "type": "sleep_record",
       "attributes": {
-        "id": 12,
+        "id": 17,
         "user_id": 2,
-        "clock_in_at": "2023-02-26T07:40:06.273Z",
-        "clock_out_at": "2023-02-26T11:40:06.273Z",
-        "sleep_duration": 14400
+        "clock_in_at": "2023-03-01T07:40:06.317Z",
+        "clock_out_at": "2023-03-01T09:40:06.317Z",
+        "sleep_duration": 7200,
+        "user": {
+          "id": 2,
+          "name": "Ivory Greenfelder PhD",
+          "created_at": "2023-03-02T07:40:06.260Z",
+          "updated_at": "2023-03-02T07:40:06.260Z"
+        }
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "2",
+            "type": "user"
+          }
+        }
       }
     },
     ...
@@ -319,7 +432,21 @@ curl http://localhost:3000/api/v1/users/sleep_records -u '1:Shondra Ortiz'
         "user_id": 2,
         "clock_in_at": "2023-02-25T07:40:06.338Z",
         "clock_out_at": "2023-02-25T14:40:06.338Z",
-        "sleep_duration": 25200
+        "sleep_duration": 25200,
+        "user": {
+          "id": 2,
+          "name": "Ivory Greenfelder PhD",
+          "created_at": "2023-03-02T07:40:06.260Z",
+          "updated_at": "2023-03-02T07:40:06.260Z"
+        }
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "2",
+            "type": "user"
+          }
+        }
       }
     }
   ]
