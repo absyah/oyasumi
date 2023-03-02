@@ -4,14 +4,14 @@ module Api
       class FollowsController < Api::BaseController
         before_action :find_user
 
-        # curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/users/:id/follow
+        # curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/users/:id/follow -u "id:name"
         def follow
           current_user.follow!(@user)
 
           render json: UserSerializer.new(@user)
         end
 
-        # curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/users/:id/unfollow
+        # curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/users/:id/unfollow -u "id:name"
         def unfollow
           current_user.unfollow!(@user)
 
