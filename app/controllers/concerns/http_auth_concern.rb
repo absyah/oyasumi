@@ -22,8 +22,8 @@ module HttpAuthConcern
     {
       errors: [
         status: :unauthorized,
-          title: 'Not Authorized',
-          detail: 'You\'re not authorized to access this resource.'
+        title: 'Not Authorized',
+        detail: 'You\'re not authorized to access this resource.'
       ]
     }
   end

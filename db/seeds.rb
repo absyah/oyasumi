@@ -5,3 +5,20 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+User.destroy_all
+
+10.times do
+  u = User.create(name: Faker::Name.name)
+
+  freezed_clock_in = DateTime.current - rand(1..7).days
+  Timecop.freeze(freezed_clock_in) do
+    u.clock_in!
+  end
+
+  Timecop.freeze(freezed_clock_in + rand(1..8).hours) do
+    u.clock_out!
+  end
+
+  puts "Basic auth: '#{u.id}:#{u.name}'"
+end
